@@ -1,5 +1,7 @@
 :root{--bg:#0f1115;--card:#1a1d24;--txt:#e6e6e6;--mut:#9aa0aa;--verde:#2ecc71;--amarelo:#f1c40f;--vermelho:#e74c3c;--azul:#3498db}
 *{box-sizing:border-box}
+/* o atributo hidden precisa vencer .grid{display:grid} e #map{...} */
+[hidden]{display:none!important}
 body{margin:0;background:var(--bg);color:var(--txt);font:14px/1.4 system-ui,sans-serif}
 .mut{color:var(--mut);font-size:12px}
 .err{color:var(--vermelho);font-size:13px;min-height:18px}
