@@ -27,10 +27,21 @@ async function lazyLoad(key, layer, builder) {
   try { await builder(layer); } catch (e) { console.error("falha carregando", key, e); _loaded[key] = false; }
 }
 
+function _errBox(msg) {
+  return '<div style="padding:24px;color:#e6e6e6;font:14px system-ui;line-height:1.6">' +
+    '<b style="color:#e74c3c">⚠️ Não consegui montar o mapa.</b><br>' + msg +
+    '<br><br><small style="color:#9aa0aa">Se for bloqueio de rede, tente outra rede/desligar bloqueador. Abra F12 → Console pra ver o detalhe.</small></div>';
+}
+
 window.initMap = function () {
   if (_map) { setTimeout(() => _map.invalidateSize(), 60); return; }
+  if (typeof L === "undefined") { document.getElementById("map").innerHTML = _errBox("A biblioteca do mapa (Leaflet) não carregou."); return; }
+  try {
   _map = L.map("map", { preferCanvas: true }).setView([-22.90, -43.32], 11);
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", { attribution: "© OSM, © CARTO", maxZoom: 19 }).addTo(_map);
+  const _tiles = L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", { attribution: "© OSM, © CARTO", maxZoom: 19 });
+  let _tileErr = 0;
+  _tiles.on("tileerror", () => { if (++_tileErr === 8) { _tiles.setUrl("https://tile.openstreetmap.org/{z}/{x}/{y}.png"); } });
+  _tiles.addTo(_map);
 
   _imovelLayer = L.layerGroup().addTo(_map);
 
@@ -94,6 +105,11 @@ window.initMap = function () {
   _renderLegend();
 
   setTimeout(() => _map.invalidateSize(), 60);
+  } catch (e) {
+    console.error("initMap falhou:", e);
+    document.getElementById("map").innerHTML = _errBox("Erro: " + e.message);
+    _map = null;
+  }
 };
 
 // imoveis: recebe as linhas JA filtradas pela lista
