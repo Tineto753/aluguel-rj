@@ -1,3 +1,3 @@
-// URL da API no Render. Trocar depois do deploy do backend.
+// URL da API no Render.
 // Em dev local: "http://localhost:8787"
-window.API_BASE = "http://localhost:8787";
+window.API_BASE = "https://aluguel-rj-api.onrender.com";
