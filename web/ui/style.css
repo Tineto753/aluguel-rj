@@ -59,6 +59,9 @@ label{color:var(--txt);display:flex;gap:4px;align-items:center;cursor:pointer;fo
 .saved.show{opacity:1}
 .card.st-descartado{opacity:.55}
 
+/* recolher filtros */
+body.filtros-hidden .controls,body.filtros-hidden .bairros{display:none}
+
 /* abas */
 .tabs{display:inline-flex;gap:4px;margin:0 8px;vertical-align:middle}
 .tab{background:#20242d;border:1px solid #333;color:var(--mut);border-radius:6px;padding:5px 10px;cursor:pointer;font-size:13px}

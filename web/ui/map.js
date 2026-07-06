@@ -27,6 +27,16 @@ async function lazyLoad(key, layer, builder) {
   try { await builder(layer); } catch (e) { console.error("falha carregando", key, e); _loaded[key] = false; }
 }
 
+// ajusta a altura do #map ao espaço disponível (abaixo do header) e revalida
+window.fitMapHeight = function () {
+  const hdr = document.querySelector("#app header");
+  const m = document.getElementById("map");
+  if (!hdr || !m) return;
+  m.style.height = Math.max(window.innerHeight - hdr.offsetHeight - 2, 300) + "px";
+  if (_map) setTimeout(() => _map.invalidateSize(), 50);
+};
+window.addEventListener("resize", () => window.fitMapHeight());
+
 function _errBox(msg) {
   return '<div style="padding:24px;color:#e6e6e6;font:14px system-ui;line-height:1.6">' +
     '<b style="color:#e74c3c">⚠️ Não consegui montar o mapa.</b><br>' + msg +
@@ -104,6 +114,7 @@ window.initMap = function () {
   _legend.addTo(_map);
   _renderLegend();
 
+  window.fitMapHeight();
   setTimeout(() => _map.invalidateSize(), 60);
   } catch (e) {
     console.error("initMap falhou:", e);

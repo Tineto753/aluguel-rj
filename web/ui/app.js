@@ -196,8 +196,15 @@ function setView(v) {
   $("tab-mapa").classList.toggle("on", v === "mapa");
   $("grid").hidden = v !== "lista";
   $("map").hidden = v !== "mapa";
-  if (v === "mapa" && window.initMap) window.initMap();
+  if (v === "mapa" && window.initMap) { window.initMap(); if (window.fitMapHeight) window.fitMapHeight(); }
   render();
+}
+
+function toggleFiltros() {
+  const hidden = document.body.classList.toggle("filtros-hidden");
+  localStorage.setItem("filtros_hidden", hidden ? "1" : "0");
+  $("btnFiltros").textContent = hidden ? "⚙️ mostrar filtros" : "⚙️ ocultar filtros";
+  if (currentView === "mapa" && window.fitMapHeight) window.fitMapHeight();
 }
 
 function render() {
@@ -219,6 +226,10 @@ function render() {
 async function boot() {
   $("login").style.display = "none";
   $("app").hidden = false;
+  if (localStorage.getItem("filtros_hidden") === "1") {
+    document.body.classList.add("filtros-hidden");
+    $("btnFiltros").textContent = "⚙️ mostrar filtros";
+  }
   try {
     const r = await api("/api/imoveis");
     DATA = await r.json();
