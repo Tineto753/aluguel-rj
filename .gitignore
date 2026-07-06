@@ -1,0 +1,19 @@
+node_modules/
+venv/
+logs/
+*.db
+*.db-journal
+.env
+# dados grandes (fonte + gerados) — reconstruíveis
+data/
+favelas.json
+tiroteios_rj.csv
+*.geojson
+olx_probe.html
+mapa.html
+ranking.html
+schema.html
+*.log
+*.txt
+fc_login.json
+fc_*.json
