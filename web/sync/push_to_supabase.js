@@ -52,7 +52,8 @@ async function main() {
       slice.forEach((r, j) => {
         const base = j * IMOVEL_COLS.length;
         values.push("(" + IMOVEL_COLS.map((_, k) => `$${base + k + 1}`).join(",") + ")");
-        for (const c of IMOVEL_COLS) params.push(r[c] === undefined ? null : r[c]);
+        // "" (string vazia do SQLite) -> null: Postgres rejeita "" em coluna numerica
+        for (const c of IMOVEL_COLS) { const v = r[c]; params.push(v === undefined || v === "" ? null : v); }
       });
       await client.query(
         `INSERT INTO imoveis (${collist}) VALUES ${values.join(",")}`,

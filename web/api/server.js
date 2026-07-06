@@ -2,6 +2,17 @@
 // Auth: senha unica compartilhada (APP_PASSWORD) -> JWT Bearer.
 // Dados: imoveis (read, espelho do pipeline) + anotacoes (read/write, duraveis).
 // Banco: Supabase (Postgres) via pool em db.js.
+// carrega ./.env em dev, se existir (no Render as envs vem do painel)
+const fs = require("fs");
+const path = require("path");
+const _envPath = path.join(__dirname, ".env");
+if (fs.existsSync(_envPath)) {
+  for (const line of fs.readFileSync(_envPath, "utf8").split("\n")) {
+    const m = line.match(/^\s*([A-Z_][A-Z0-9_]*)\s*=\s*(.*)\s*$/);
+    if (m) process.env[m[1]] ??= m[2].replace(/^["']|["']$/g, "");
+  }
+}
+
 const express = require("express");
 const cors = require("cors");
 const jwt = require("jsonwebtoken");
