@@ -56,3 +56,20 @@ label{color:var(--txt);display:flex;gap:4px;align-items:center;cursor:pointer;fo
 .saved{font-size:11px;color:var(--verde);opacity:0;transition:opacity .2s}
 .saved.show{opacity:1}
 .card.st-descartado{opacity:.55}
+
+/* abas */
+.tabs{display:inline-flex;gap:4px;margin:0 8px;vertical-align:middle}
+.tab{background:#20242d;border:1px solid #333;color:var(--mut);border-radius:6px;padding:5px 10px;cursor:pointer;font-size:13px}
+.tab.on{background:var(--azul);color:#fff;border-color:var(--azul)}
+
+/* mapa */
+#map{height:calc(100vh - 150px);min-height:400px;margin:0}
+.legend,.leaflet-control-layers{background:#12141a!important;color:#e6e6e6!important;font:13px system-ui}
+.legend{padding:10px 12px;border-radius:8px;line-height:1.7;max-width:220px}
+.legend b{font-size:13px}
+.grad{height:10px;border-radius:3px;background:linear-gradient(90deg,#2ecc71,#f1c40f,#e67e22,#c0392b);margin:2px 0}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.sq{display:inline-block;width:12px;height:12px;margin-right:6px;vertical-align:middle;border:1px solid #000}
+.pop{font:13px system-ui;min-width:190px;color:#111}.pop b{font-size:15px}.pop a{color:#2563eb}.pop .r{color:#c0530b}
+.leaflet-control-layers label{color:#e6e6e6}.leaflet-control-layers-separator{border-color:#333}
+.house svg{filter:drop-shadow(0 0 1px #000)}

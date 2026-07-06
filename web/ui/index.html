@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Ranking Aluguel RJ</title>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -23,6 +24,10 @@
 <div id="app" hidden>
   <header>
     <h1>🏠 Ranking Aluguel RJ <span class="mut" id="count"></span>
+      <span class="tabs">
+        <button class="tab on" id="tab-lista" onclick="setView('lista')">📋 Lista</button>
+        <button class="tab" id="tab-mapa" onclick="setView('mapa')">🗺️ Mapa</button>
+      </span>
       <button class="reset" onclick="resetF()">↺ padrão</button>
       <button class="reset" onclick="logout()">sair</button>
     </h1>
@@ -54,9 +59,12 @@
     <div class="bairros" id="bairros"></div>
   </header>
   <div class="grid" id="grid"></div>
+  <div id="map" hidden></div>
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script src="config.js"></script>
 <script src="app.js"></script>
+<script src="map.js"></script>
 </body>
 </html>

@@ -157,7 +157,7 @@ function card(d) {
   return el;
 }
 
-function render() {
+function filteredRows() {
   const q = norm($("q").value), pet = $("pet").value, nocom = $("nocom").checked, noquarto = $("noquarto").checked, nofav = $("nofav").checked, viz = $("viz").checked;
   const maxcv = +$("maxcv").value || 9e9, minm2 = +$("minm2").value || 0, mindist = +$("mindist").value || 0, maxtiros = $("maxtiros").value;
   const fas = $("fas").checked, fmob = $("fmob").checked, fbx = $("fbx").checked, fzap = $("fzap").checked, fnovo = $("fnovo").checked, ffav = $("ffav").checked, fstatus = $("fstatus").value, sort = $("sort").value;
@@ -186,13 +186,33 @@ function render() {
     return true;
   });
   rows.sort((a, b) => sort === "cv" ? (a.custo_vida || 9e9) - (b.custo_vida || 9e9) : sort === "m2" ? (b.m2 || 0) - (a.m2 || 0) : sort === "fotos" ? (b.n_fotos || 0) - (a.n_fotos || 0) : (b.nota_final || 0) - (a.nota_final || 0));
+  return rows;
+}
+
+let currentView = "lista";
+function setView(v) {
+  currentView = v;
+  $("tab-lista").classList.toggle("on", v === "lista");
+  $("tab-mapa").classList.toggle("on", v === "mapa");
+  $("grid").hidden = v !== "lista";
+  $("map").hidden = v !== "mapa";
+  if (v === "mapa" && window.initMap) window.initMap();
+  render();
+}
+
+function render() {
+  const rows = filteredRows();
+  $("count").textContent = "(" + rows.length + " imóveis)";
+  $("stats").textContent = DATA.length + " no total";
+  if (currentView === "mapa") {
+    if (window.updateMap) window.updateMap(rows);
+    return;
+  }
   const grid = $("grid");
   grid.innerHTML = "";
   const frag = document.createDocumentFragment();
   for (const d of rows) frag.append(card(d));
   grid.append(frag);
-  $("count").textContent = "(" + rows.length + " imóveis)";
-  $("stats").textContent = DATA.length + " no total";
 }
 
 // ---------- boot ----------
