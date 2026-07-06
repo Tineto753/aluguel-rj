@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ranking Aluguel RJ</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- tela de login -->
+<div id="login" class="login">
+  <form id="loginForm" class="login-box">
+    <h1>🏠 Aluguel RJ</h1>
+    <p class="mut">Acesso restrito</p>
+    <input id="pw" type="password" placeholder="senha" autocomplete="current-password">
+    <button type="submit">Entrar</button>
+    <div id="loginErr" class="err"></div>
+  </form>
+</div>
+
+<!-- dashboard (escondido ate logar) -->
+<div id="app" hidden>
+  <header>
+    <h1>🏠 Ranking Aluguel RJ <span class="mut" id="count"></span>
+      <button class="reset" onclick="resetF()">↺ padrão</button>
+      <button class="reset" onclick="logout()">sair</button>
+    </h1>
+    <div class="controls">
+      <input id="q" placeholder="🔎 bairro/rua/anunciante" style="min-width:150px">
+      <div class="grp"><span class="t">Pet</span>
+        <select id="pet"><option value="ok">permite/desconhecido</option><option value="sim">só confirmado 🐾</option><option value="any">tanto faz</option></select></div>
+      <div class="grp"><span class="t">Tipo</span>
+        <label><input type="checkbox" id="nocom" checked>sem comercial</label>
+        <label><input type="checkbox" id="noquarto" checked>sem quarto</label></div>
+      <div class="grp"><span class="t">Segurança</span>
+        <label><input type="checkbox" id="nofav" checked>sem favela</label>
+        <label><input type="checkbox" id="viz">incluir vizinhos</label></div>
+      <div class="grp"><span class="t">Custo vida ≤</span><input id="maxcv" type="number" value="2500" style="width:75px"></div>
+      <div class="grp"><span class="t">m² ≥</span><input id="minm2" type="number" value="25" style="width:60px"></div>
+      <div class="grp"><span class="t">🔫 dist. favela ≥</span><input id="mindist" type="number" value="150" style="width:65px">m</div>
+      <div class="grp"><label><input type="checkbox" id="fas">área serviço</label>
+        <label><input type="checkbox" id="fmob">mobiliado</label>
+        <label><input type="checkbox" id="fbx">↓ baixou</label>
+        <label><input type="checkbox" id="fzap">tem WhatsApp</label>
+        <label><input type="checkbox" id="fnovo">🆕 só novos</label></div>
+      <div class="grp"><span class="t">💥 tiros/1km ≤</span><input id="maxtiros" type="number" style="width:55px" placeholder="∞"></div>
+      <div class="grp"><label><input type="checkbox" id="ffav">⭐ só favoritos</label></div>
+      <div class="grp"><span class="t">Status</span>
+        <select id="fstatus"><option value="">todos</option><option value="_none">sem status</option><option value="contatei">contatei</option><option value="agendado">agendado</option><option value="descartado">descartado</option></select></div>
+      <select id="sort"><option value="nota">ordenar: nota</option><option value="cv">menor custo</option><option value="m2">maior m²</option><option value="fotos">mais fotos</option></select>
+      <span id="stats"></span>
+    </div>
+    <div class="bairros" id="bairros"></div>
+  </header>
+  <div class="grid" id="grid"></div>
+</div>
+
+<script src="config.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

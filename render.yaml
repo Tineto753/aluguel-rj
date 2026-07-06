@@ -1,0 +1,22 @@
+# Blueprint do Render p/ a API do dashboard de aluguel.
+# No Render: New > Blueprint > aponta pro repo. Ele lê isto e cria o serviço.
+# As envs marcadas sync:false o Render pergunta na criacao (nao ficam no git).
+services:
+  - type: web
+    name: aluguel-rj-api
+    runtime: node
+    rootDir: web/api
+    plan: free
+    region: oregon
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: APP_PASSWORD
+        sync: false
+      - key: JWT_SECRET
+        sync: false
+      - key: DATABASE_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false

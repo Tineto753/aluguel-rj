@@ -1,0 +1,9 @@
+{
+  "name": "aluguel-rj-sync",
+  "version": "1.0.0",
+  "description": "Empurra os imoveis do aluguel.db local para o Supabase (rodado no pipeline diario)",
+  "type": "commonjs",
+  "main": "push_to_supabase.js",
+  "scripts": { "push": "node push_to_supabase.js" },
+  "dependencies": { "pg": "^8.13.1" }
+}

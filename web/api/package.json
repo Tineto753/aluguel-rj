@@ -1,0 +1,20 @@
+{
+  "name": "aluguel-rj-api",
+  "version": "1.0.0",
+  "description": "API do dashboard de aluguel RJ (Render): auth + imoveis + anotacoes, banco Turso",
+  "type": "commonjs",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "initdb": "node initdb.js"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "jsonwebtoken": "^9.0.2",
+    "pg": "^8.13.1"
+  }
+}

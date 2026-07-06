@@ -32,4 +32,12 @@ for s in dedup merge_grupos sabren buffer build_bairro_crime tiros_freq rank; do
 step gera_html
 step gera_mapa
 
+# 6) sync online: empurra os imóveis pro Supabase (dashboard web). Só roda se houver .env.
+if [ -f web/.env ]; then
+  echo "--- push_to_supabase  $(date +%T)"
+  $N web/sync/push_to_supabase.js || echo "!! FALHOU push_to_supabase"
+else
+  echo "--- push_to_supabase: pulado (sem web/.env)"
+fi
+
 echo "========== $(date '+%F %T') FIM ($NOVOS novos) =========="
